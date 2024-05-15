@@ -1,0 +1,39 @@
+steps:
+
+  # Build the Cloud Workstation container image
+- id: 'build-image'
+  name: 'gcr.io/cloud-builders/docker'
+  dir: 'image'
+  env:
+    - 'REGISTRY_URL=$_ARTIFACT_REGISTRY_BASE_URL'
+    - 'IMAGE_NAME=$_IMAGE_NAME'
+    - 'WORKSPACE_DIR=/workspace'
+  entrypoint: 'bash'
+  args:
+    - './steps/build_image.bash'
+  
+  # Update the tag of the Cloud Workstation container image in the registry to contain "latest"
+- id: 'update-tag'
+  name: 'gcr.io/cloud-builders/gcloud'
+  dir: 'image'
+  env:
+    - 'WORKSPACE_DIR=/workspace'
+  entrypoint: 'bash'
+  args:
+    - './steps/update_tag.bash'
+
+# Updates the workstation configuration to use the latest image
+- id: 'update-config'
+  name: 'gcr.io/cloud-builders/gcloud'
+  dir: 'image'
+  env:
+    - 'CW_CONFIG_NAME=$_CW_CONFIG_NAME'
+    - 'CW_CLUSTER_NAME=$_CW_CLUSTER_NAME'
+    - 'GCP_REGION=$_GCP_REGION'
+    - 'WORKSPACE_DIR=/workspace'
+  entrypoint: 'bash'
+  args:
+    - './steps/update_config.bash'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

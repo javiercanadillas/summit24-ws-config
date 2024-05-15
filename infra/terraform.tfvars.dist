@@ -1,0 +1,3 @@
+gcp_project_id = "$GCP_PROJECT_ID"
+user_email = "$GCP_USER_EMAIL"
+ws_id = "custom-ws"
