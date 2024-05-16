@@ -43,6 +43,7 @@ _pathmunge() {
       PATH="$1:$PATH"
     fi
   fi
+}
 
 _add_line_if_not_exists() {
   local file="$1"
