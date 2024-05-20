@@ -13,7 +13,7 @@ COPY ./scripts/configure/* .config/configure/
 RUN .config/configure/full_configure.bash
 
 ## Set up common system-wide utilities
-# COPY ./extra/*.bash /usr/local/bin/
+COPY ./scripts/extra/*.bash /usr/local/bin/
 
 ## Boot time user scripts
 # Managing dotfiles is the recommended way to manage user settings, so I'm skipping these
