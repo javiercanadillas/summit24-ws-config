@@ -17,6 +17,7 @@ declare -a packages_list_base=(
   jq
   lsb-release
   software-properties-common
+  gettext-base # get envsubst
   amd64-microcode # as of CVE-2023-20569
 )
 
