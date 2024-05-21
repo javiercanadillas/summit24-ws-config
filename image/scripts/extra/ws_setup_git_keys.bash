@@ -9,6 +9,34 @@ set -uo pipefail
 export key_file_name="ed25519-gitlab"
 export project_id="${PROJECT_ID:-javiercm-main-dev}"
 
+# Detect sudo
+check_sudo() {
+  if [[ $EUID -eq 0 ]]; then
+     echo "This script must not be run as root. Please run it as a regular user." 
+     exit 1
+  fi
+}
+
+# Check gcloud login
+check_gcloud_login() {
+  hash gcloud || {
+    echo "gcloud is not installed, aborting..."
+    exit 1
+  }
+  gcloud auth list --filter=status=ACTIVE --format="value(account)" || {
+    echo "gcloud is not logged in, you must run 'gcloud auth login' first"
+    exit 1
+  }
+}
+
+# Create the SSH directory if it does not exist
+create_ssh_dir() {
+  [[ -d "$HOME/.ssh" ]] || {
+    echo "$HOME/.ssh does not exist, creating..."
+    mkdir -p "$HOME/.ssh"
+  }
+}
+
 # Get a secret from GCP Secret Manager
 _get_secret() {
   hash gcloud || {
@@ -66,6 +94,9 @@ EOF
 }
 
 main() {
+  check_sudo
+  check_gcloud_login
+  create_ssh_dir
   get_gitlab_private_key
   get_gitlab_public_key
   create_ssh_config

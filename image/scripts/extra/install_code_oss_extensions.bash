@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 # Install VS Code extensions in Code OSS for Linux systems as end user
 # 2023 - Javier Cañadillas <javier at canadillas.org>
-#todo detect that this script is not being called with sudo or root privileges
-#todo detect that a Linux system is present
 
 set -eou pipefail
 
@@ -23,6 +21,14 @@ declare -a vsx_ext_list=(
   "material-icon-theme"
 )
 
+# Detect sudo
+check_sudo() {
+  if [[ $EUID -eq 0 ]]; then
+     echo "This script must not be run as root. Please run it as a regular user." 
+     exit 1
+  fi
+}
+
 # Format is https://{publisher}.gallery.vsassets.io/_apis/public/gallery/publisher/{publisher}/extension/{package}/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage
 # See: https://gist.github.com/taylor-jones/78d4db0163bb0ae94131f58c75f425fe
 declare -A vscode_ext_list=(
@@ -31,17 +37,14 @@ declare -A vscode_ext_list=(
 )
 
 # Installs Code OSS extensions from the Open VSXI Marketplace using the cli
-#todo I should pass the extensions list to this function
 install_vsx_exts() {
   local vsx_ext_name
   for vsx_ext_name in "${vsx_ext_list[@]}"; do
-    #todo check that code alias exists and if not, solve the issue
-    code --install-extension "$vsx_ext_name"
+    code-oss-cloud-workstations --install-extension "$vsx_ext_name"
   done
 }
 
 # Installs VSCode Extensions from Microsoft's Marketplace
-#todo I should pass the extensions list to this function
 install_dl_vscode_exts() {
   local -r ext_install_dir="$1" && shift
   local vscode_ext_name
@@ -62,13 +65,12 @@ install_dl_vscode_exts() {
 }
 
 main() {
-  check_debian_like
-  #todo check that the directory below is correct
+  check_sudo
   local -r ext_install_dir="$HOME/.code-oss-workstation/extensions"
   install_vsx_exts
   # These extensions don't belong to the VSXI marketplace, so installing them
   # by downloading the corresponding package from Microsoft
-  [[ "$INSTALL_MS_EXTS" == false ]] && install_dl_vscode_exts "$ext_install_dir"
+  [[ "$INSTALL_MS_EXTS" == true ]] && install_dl_vscode_exts "$ext_install_dir"
 }
 
 main "$@"
