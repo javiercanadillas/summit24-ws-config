@@ -32,7 +32,7 @@ check_debian_like() {
   }
 }
 
-install_vsx_ext_old() {
+install_vsx_ext() {
   local -r ext_install_dir="$1" && shift
   for vsx_ext_name in "${!vsx_ext_list[@]}"; do
     pushd "$(mktemp -d)" || exit 1
@@ -50,7 +50,7 @@ install_vsx_ext_old() {
   done
 }
 
-install_vsx_ext() {
+install_vsx_ext_new() {
   echo "Installing CodeOSS extensions..."
   for vsx_ext_name in "${!vsx_ext_list[@]}"; do
     echo "Installing $vsx_ext_name..."
