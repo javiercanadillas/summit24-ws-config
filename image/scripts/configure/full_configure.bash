@@ -35,6 +35,7 @@ alias gproj='gcloud config set project'
 alias gconf='gcloud config configurations'
 
 # System-wide functions
+# _pathmunge() <route to add to the PATH>
 _pathmunge() {
   if ! echo "$PATH" | /bin/grep -E -q "(^|:)$1($|:)"; then
     if [ "$2" = "after" ]; then
@@ -58,7 +59,7 @@ EOF
 
 set_system_wide_path() {
   echo "Setting system-wide PATH..."
-  # Nothing to add here for the moment
+  _pathmunge "/home/user/.local/bin"
 }
 
 main() {
