@@ -2,19 +2,22 @@ FROM us-central1-docker.pkg.dev/cloud-workstations-images/predefined/code-oss:la
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+## INSTALL SECTION
 ## Copy image setting scripts and customize image
 RUN mkdir -p /root/.config/install
 COPY ./scripts/install/* .config/install/
 RUN .config/install/full_install.bash
 
+## CONFIGURE SECTION
 ## Set up OS-level configuration for all users
 RUN mkdir -p /root/.config/configure
 COPY ./scripts/configure/* .config/configure/
 RUN .config/configure/full_configure.bash
 
+## EXTRA SECTION
 ## Set up common system-wide utilities
-COPY ./scripts/extra/*.bash /usr/local/bin/
+COPY ./scripts/extra/ws_*.bash /usr/local/bin/
 
+## BOOT SECTION
 ## Boot time user scripts
-# Managing dotfiles is the recommended way to manage user settings, so I'm skipping these
-# COPY ./scripts/boot/* /etc/workstation-startup.d/
+COPY ./scripts/boot/[0-9][0-9][0-9]*.sh /etc/workstation-startup.d/
