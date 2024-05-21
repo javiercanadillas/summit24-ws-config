@@ -9,10 +9,11 @@
 user_name="user"
 group_name="user"
 readme_file="README.md"
+config_dir="/root/.config/configure"
 
 check_readme_file() {
-  if [[ ! -f "/root/${readme_file}" ]]; then
-    echo "No README file found in /root, aborting..."
+  if [[ ! -f "${config_dir}/${readme_file}" ]]; then
+    echo "No README file found in $config_dir, aborting..."
     exit 1
   fi
 }
