@@ -57,15 +57,9 @@ _add_line_if_not_exists() {
 EOF
 }
 
-set_system_wide_path() {
-  echo "Setting system-wide PATH..."
-  _pathmunge "/home/user/.local/bin"
-}
-
 main() {
   set_timezone
   set_system_wide_aliases
-  #set_system_wide_path
 }
 
 main "$@"
