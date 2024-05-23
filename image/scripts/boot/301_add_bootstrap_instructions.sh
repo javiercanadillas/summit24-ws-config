@@ -8,7 +8,7 @@
 
 user_name="user"
 group_name="user"
-source_dir="/root/config/.configure"
+source_dir="/root/.config/configure"
 readme_file="README.md"
 
 dest_dir="/home/${user_name}"

@@ -9,7 +9,7 @@
   "python.analysis.typeCheckingMode": "basic",
   "python.analysis.inlayHints.variableTypes": true,
   "cloudcode.project": "javiercm-main-dev",
-  "workbench.startupEditor": "none"
+  "workbench.startupEditor": "none",
   "cloudcode.duetAI.project": "javiercm-main-dev",
   "cloudcode.updateChannel": "Insiders"
 }
