@@ -24,7 +24,7 @@ add_code_oss_machine_settings() {
   mkdir -p "${dest_dir}"
   cp -- "${source_dir}/${settings_file}" "${dest_dir}" && {
     chown "${user_name}:${group_name}" "${dest_dir}/${settings_file}"
-    chmod -R 644 "${dest_dir_codeoss}"
+    chmod -R 755 "${dest_dir_codeoss}"
     rm -- "${source_dir}/${settings_file}"
   }
 }
