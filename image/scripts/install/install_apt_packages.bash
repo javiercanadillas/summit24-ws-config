@@ -26,9 +26,9 @@ declare -a packages_list_extended=(
   docker-compose-plugin
   bat
   yadm
-  shellcheck
+  #shellcheck
   git
-  gh
+  #gh
   google-cloud-sdk-skaffold
   google-cloud-sdk-cloud-run-proxy
   google-cloud-sdk-log-streaming
