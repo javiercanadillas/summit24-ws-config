@@ -20,7 +20,17 @@ check_settings_file() {
 }
 
 add_code_oss_machine_settings() {
-  cp -- "${source_dir}/${settings_file}" "${dest_dir}/${settings_file}" && {
+  mkdir -p "${dest_dir}"
+  cp -- "${source_dir}/${settings_file}" "${dest_dir}" && {
+    chown "${user_name}:${group_name}" "${dest_dir}/${settings_file}"
+    chmod 644 "${dest_dir}/${settings_file}"
+    rm -- "${source_dir}/${settings_file}"
+  }
+}
+
+add_code_oss_machine_settings_bk() {
+  local -r dest_dir="home/${user_name}"
+  cp -- "${source_dir}/${settings_file}" "${dest_dir}" && {
     chown "${user_name}:${group_name}" "${dest_dir}/${settings_file}"
     chmod 644 "${dest_dir}/${settings_file}"
     rm -- "${source_dir}/${settings_file}"
