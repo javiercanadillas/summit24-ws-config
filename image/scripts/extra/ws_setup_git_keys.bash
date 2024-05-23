@@ -89,8 +89,6 @@ Host gitlab.com
   PreferredAuthentications publickey
 
 EOF
-  #envsubst < "${ssh_config_file}.staging" > "$ssh_config_file"
-
 }
 
 main() {
