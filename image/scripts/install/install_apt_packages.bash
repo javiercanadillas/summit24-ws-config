@@ -26,6 +26,7 @@ declare -a packages_list_extended=(
   docker-compose-plugin
   bat
   yadm
+  python3-venv
   #shellcheck
   git
   #gh
