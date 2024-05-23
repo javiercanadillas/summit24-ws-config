@@ -2,9 +2,11 @@ FROM us-central1-docker.pkg.dev/cloud-workstations-images/predefined/code-oss:la
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+WORKDIR /root
+
 ## INSTALL SECTION
 ## Copy image setting scripts and customize image
-RUN mkdir -p /root/.config/install
+RUN mkdir -p .config/install
 COPY ./scripts/install/* .config/install/
 RUN .config/install/full_install.bash
 
