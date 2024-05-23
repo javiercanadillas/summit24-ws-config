@@ -8,9 +8,9 @@
 
 user_name="user"
 group_name="user"
-source_dir="/root/.configure"
+source_dir="/root/.config/configure"
 settings_file="settings.json"
-dest_dir="/home/${user_name}"
+dest_dir="/home/${user_name}/.codeoss-cloudworkstations/data/Machine"
 
 check_settings_file() {
   if [[ ! -f "${source_dir}/${settings_file}" ]]; then
