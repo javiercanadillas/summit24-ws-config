@@ -8,23 +8,28 @@
 
 user_name="user"
 group_name="user"
+source_dir="/root/.configure"
 readme_file="README.md"
-config_dir="/root/.config/configure"
+
+dest_dir="/home/${user_name}"
 
 check_readme_file() {
-  if [[ ! -f "${config_dir}/${readme_file}" ]]; then
-    echo "No README file found in $config_dir, aborting..."
+  if [[ ! -f "${source_dir}/${readme_file}" ]]; then
+    echo "No README file found in /root, aborting..."
     exit 1
   fi
 }
 
 copy_readme_file() {
-  cp -- "/root/${readme_file}" "${HOME}/${readme_file}"
-  chown "${user_name}:${group_name}" "${HOME}/${readme_file}"
-  chmod 644 "${HOME}/${readme_file}"
+  cp -- "${source_dir}/${readme_file}" "${dest_dir}/${readme_file}" && {
+    chown "${user_name}:${group_name}" "${dest_dir}/${readme_file}"
+    chmod 644 "${dest_dir}/${readme_file}"
+    rm -- "${source_dir}/${readme_file}"
+  }
 }
 
 main() {
+  check_readme_file
   copy_readme_file
 }
 
