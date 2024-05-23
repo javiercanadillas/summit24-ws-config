@@ -4,6 +4,14 @@ Here are the basic steps you need to perform to get your Cloud Workstation up an
 
 ## First time setup
 
+There's an automated process you can run with
+
+```bash
+ws_bootstrap.bash
+```
+
+If you prefer doing the steps by yourself, read on.
+
 ### Login in to Google Cloud
 
 Log in to Google Cloud for API and services access:
@@ -29,7 +37,8 @@ ws_setup_git_keys.bash
 Get your dotfiles from the repository and bootstrap any local configuration you may have:
 
 ```bash
-yadm clone git@gitlab.com:javiercm/workstation-dotfiles.git
+ssh-keyscan -H gitlab.com > ~/.ssh/known_hosts
+yadm clone "$DOTFILES_REPO" --bootstrap -f
 ```
 
 Finally, make sure you substitute any placeholders in your dotfiles with the correct values:
